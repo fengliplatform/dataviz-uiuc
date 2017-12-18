@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-lite/2.0.0-beta.3/vega-lite.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vega/3.0.0-beta.31/vega.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-embed/3.0.0-beta.14/vega-embed.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/vega-tooltip/0.3.3/vega-tooltip.min.css"></link>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-tooltip/0.3.3/vega-tooltip.min.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+
+    .vega-actions a {
+      padding: 0.2em;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="https://fengliplatform.github.io/about.html">About CS498 - Final Project</a></li>
+          <li><a href="https://fengliplatform.github.io/index.html">Home</a></li>
+          <li><a href="https://fengliplatform.github.io/scene1.html">Scene1</a></li>
+          <li><a href="https://fengliplatform.github.io/scene2.html">Scene2</a></li>
+          <li class="active"><a href="https://fengliplatform.github.io/scene3.html">Scene3</a></li>
+          <li><a href="https://fengliplatform.github.io/final.html">Final</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="page-header">
+      <br>
+      <h1>Air Quality Data Analysis - Ozone vs Solar Radiation</h1>
+    </div>
+    <p class="lead">Finally we want to find out if there is any relation between "Ozone" and "Solar Radiation".</p>
+    <p class="lead">As following left chart is a comparison of Ozone and Solar Radiation from May to September. We can see
+      an overall positive trend between the two. But it seems it's a relatively weak relation compared to Ozone and temperature. </p>
+    <p class="lead">The right chart shows a scatter plot of Ozone vs Solar Radiation. The points are colored by month.
+      We can see overall this is a positive relation. If we zoom in to the chart, we can check monthly details.</p>
+    <br>
+    <br>
+    <div class="container">
+      <div class="col-lg-6">
+        <h4 class="text-center">Trend of Ozone vs Solar Radiation By Month</h4>
+        <div id="vis2"></div>
+      </div>
+      <div class="col-lg-6">
+        <h4 class="text-center">Scatter Plot - Ozone vs Solar Radiation</h4>
+        <div id="vis"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const spec = {
+      "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+      "description": "By Solar.R",
+      "width": 420,
+      "height": 240,
+      "data": {"url": "data/airquality2.csv"},
+      "selection": {
+      "grid": {
+       "type": "interval", "bind": "scales"
+      }
+      },
+      "mark": "circle",
+      "encoding": {
+       "x": {"field": "Solar", "type": "quantitative", "scale": {"domain": [-200, 500]},
+            "axis":{"title": "Solar Radiation (Langleys)"}},
+       "y": {"field": "Ozone", "type": "quantitative", "scale": {"domain": [-20, 200]},
+            "axis":{"title": "Mean Ozone (PPB)"}},
+      "size": {"value": 150},
+    	"color": {"field": "Month", "type": "nominal"}
+      }
+    };
+	var opt = {
+      mode: "vega-lite",
+      actions: false
+    };
+    vega.embed("#vis", spec, opt, function (error, result) {
+      var tooltipOption = {
+    		showAllFields: false,
+        fields: [
+              		{ field: "Solar", "title": "Solar Radiation" },
+              		{ field: "Ozone"}
+            		]
+  		};
+      vegaTooltip.vegaLite(result.view, spec, tooltipOption);
+    });
+
+  </script>
+  <script>
+    const spec2 = "scene3-2.json";
+    var opt2 = {
+      mode: "vega-lite",
+      actions: false
+    };
+    vega.embed("#vis2", spec2, opt2);
+  </script>
+
+  <div class="container">
+    <div class="col-lg-2 text-left">
+      <a href="https://fengliplatform.github.io/scene2.html">
+      <button type="button" class="btn btn-default btn-lg btn-primary">
+        <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Prev
+      </button></a>
+
+    </div>
+    <div class="col-lg-8"></div>
+    <div class="col-lg-2 text-left">
+    <a href="https://fengliplatform.github.io/final.html">
+    <button type="button" class="btn btn-default btn-lg btn-primary">
+      Next<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+    </button></a>
+    </div>
+  </div>
+
+</body>

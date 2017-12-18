@@ -1,0 +1,36 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+  "description": "By Wind",
+  "width": 420,
+  "height": 240,
+  "data": {"url": "data/airquality2.csv"},
+  "layer": [{
+  "selection": {
+    "MonthSel": {
+      "type": "single", "fields": ["Month"],
+      "bind": {"input": "select", "name": "Month",
+                "options": [5,6,7,8,9]
+      }
+    }
+  },
+  "mark": "circle",
+  "encoding": {
+    "x": {"field": "Wind", "type": "quantitative", "axis": {"title": "Wind Speed (MPH)"}},
+    "y": {"field": "Ozone", "type": "quantitative", "axis": {"title": "Mean Ozone (PPB)"}},
+    "color": {
+      "condition": {"selection": "MonthSel", "field": "Month", "type": "nominal"},
+      "value": "grey"
+    },
+    "size": {"value": 100}
+  }
+}, {
+  "transform": [{"filter": {"selection": "MonthSel"}}],
+  "mark": "circle",
+  "encoding": {
+    "x": {"field": "Wind", "type": "quantitative"},
+    "y": {"field": "Ozone", "type": "quantitative"},
+    "color": {"field": "Month", "type": "nominal"},
+    "size": {"value": 150}
+  }
+}]
+}

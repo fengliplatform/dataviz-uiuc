@@ -1,0 +1,18 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v2.0.json",
+  "description": "Ozone overview",
+  "width": 360,
+  "data": {"url": "data/airquality2.csv"},
+  "mark": "circle",
+  "encoding": {
+    "x": {
+      "timeUnit": "monthdate", "field": "date", "type": "temporal",
+      "axis": {"title": "Date"}
+    },
+    "y": {
+      "field": "Ozone", "type": "quantitative",
+      "axis": {"title": "Mean Ozone (PPB)"}
+    },
+    "size": {"value": 150}
+  }
+}

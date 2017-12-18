@@ -1,0 +1,21 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+  "description": "By Solar.R",
+  "width": 420,
+  "height": 240,
+  "data": {"url": "data/airquality2.csv"},
+  "selection": {
+  "grid": {
+   "type": "interval", "bind": "scales"
+  }
+  },
+  "mark": "circle",
+  "encoding": {
+   "x": {"field": "Solar", "type": "quantitative", "scale": {"domain": [0, 300]},
+        "axis":{"title": "Solar Radiation (Langleys)"}},
+   "y": {"field": "Ozone", "type": "quantitative", "scale": {"domain": [0, 100]},
+        "axis":{"title": "Mean Ozone (PPB)"}},
+  "size": {"value": 150},
+  "color": {"field": "Month", "type": "nominal"}
+  }
+}

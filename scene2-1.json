@@ -1,0 +1,21 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+  "description": "By Temperature",
+  "width": 420,
+  "height": 240,
+  "data": {"url": "data/airquality2.csv"},
+  "selection": {
+  "grid": {
+   "type": "interval", "bind": "scales"
+  }
+  },
+  "mark": "circle",
+  "encoding": {
+   "x": {"field": "Temp", "type": "quantitative", "scale": {"domain": [60, 94]},
+        "axis":{"title": "Max Daily Temperature (Degrees Fahrenheit)"}},
+   "y": {"field": "Ozone", "type": "quantitative", "scale": {"domain": [20, 100]},
+        "axis":{"title": "Mean Ozone (PPB)"}},
+        "tooltip": {"field": "Ozone", "type": "quantitative"},
+	"color": {"field": "Month", "type": "nominal"}
+  }
+}
